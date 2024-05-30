@@ -1,3 +1,12 @@
+import {
+  BadgeDollarSign,
+  CandlestickChart,
+  FileSpreadsheet,
+  FlaskConical,
+  Landmark,
+  LineChart,
+  Ticket,
+} from "lucide-react";
 import Link from "next/link";
 
 export const Navigation = () => {
@@ -6,30 +15,30 @@ export const Navigation = () => {
       <span className="mt-2 mb-1">Documents</span>
       <Link
         href="#"
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+        className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
       >
-        {/* <Home className="h-4 w-4" /> */}
+        <FileSpreadsheet className="h-4 w-4" />
         Invoices
       </Link>
       <Link
         href="#"
         className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
       >
-        {/* <ShoppingCart className="h-4 w-4" /> */}
+        <FlaskConical className="h-4 w-4" />
         Lab Results
       </Link>
       <Link
         href="#"
-        className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+        className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
       >
-        {/* <Package className="h-4 w-4" /> */}
+        <Ticket className="h-4 w-4" />
         Tickets
       </Link>
       <Link
         href="#"
         className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
       >
-        {/* <Users className="h-4 w-4" /> */}
+        <LineChart className="h-4 w-4" />
         Trade
       </Link>
 
@@ -38,21 +47,21 @@ export const Navigation = () => {
         href="#"
         className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
       >
-        {/* <LineChart className="h-4 w-4" /> */}
+        <Landmark className="h-4 w-4" />
         Bank Transactions
       </Link>
       <Link
         href="#"
         className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
       >
-        {/* <LineChart className="h-4 w-4" /> */}
+        <BadgeDollarSign className="h-4 w-4" />
         Sales
       </Link>
       <Link
         href="#"
         className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
       >
-        {/* <LineChart className="h-4 w-4" /> */}
+        <CandlestickChart className="h-4 w-4" />
         Portfolio Valuation
       </Link>
     </nav>
