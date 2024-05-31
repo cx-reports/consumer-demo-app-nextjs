@@ -1,11 +1,12 @@
-import { DesktopMenu } from "@/components/modules/DesktopMenu";
-import { MobileMenu } from "@/components/modules/MobileMenu";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { Logo } from "@/components/ui/logo";
+import { DesktopMenu } from "@/components/modules/desktop-menu";
+import { MobileMenu } from "@/components/modules/mobile-menu";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,18 +33,18 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
           disableTransitionOnChange
         >
           <DesktopMenu />
 
           <div className="flex flex-col">
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-              <MobileMenu />
+              <Logo className="block md:hidden" />
 
-              <div className="w-full flex flex-1 justify-end">
+              <div className="w-full flex flex-1 justify-end gap-2">
                 <ModeToggle />
+                <MobileMenu />
               </div>
             </header>
 
