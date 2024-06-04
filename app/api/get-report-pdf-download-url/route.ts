@@ -15,13 +15,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const searchParams = new URLSearchParams(url.searchParams);
     const tmpDataId = searchParams.get("tempDataId");
 
-    let previewUrl = client.getReportPreviewURL({
+    let downloadUrl = client.getReportPdfDownloadURL({
       reportId: 18620,
       nonce,
       tmpDataId: tmpDataId !== null ? parseInt(tmpDataId) : undefined,
     });
 
-    return NextResponse.json({ previewUrl });
+    return NextResponse.json({ downloadUrl });
   } catch (error) {
     console.error(error);
   }

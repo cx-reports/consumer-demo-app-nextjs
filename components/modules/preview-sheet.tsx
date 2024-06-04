@@ -5,10 +5,11 @@ import { SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 
 export function PreviewSheet() {
-  const [previewUrl, setPreviewUrl] = useState();
-  // const [tempDataId, setTempDataId] = useState();
+  const [previewUrl, setPreviewUrl] = useState<string>();
 
-  const getPreviewUrl = async (tempDataId: number) => {
+  const getPreviewUrl = async () => {
+    const tempDataId = await pushTemporaryData();
+
     let { previewUrl } = await fetch(
       `/api/get-report-preview-url?tempDataId=${tempDataId}`,
       {
@@ -19,11 +20,32 @@ export function PreviewSheet() {
       }
     ).then((res) => res?.json());
 
-    setPreviewUrl(previewUrl);
+    setPreviewUrl(`${previewUrl}&hidePrintButton=true`);
+  };
+
+  const getDownloadUrl = async () => {
+    const tempDataId = await pushTemporaryData();
+
+    let downloadUrl = await fetch(
+      `/api/get-report-pdf-download-url?tempDataId=${tempDataId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((res) => res?.json());
+
+    return downloadUrl;
+  };
+
+  const downloadPdfFIle = async () => {
+    let downloadUrl = await getDownloadUrl();
+    window.open(downloadUrl.downloadUrl);
   };
 
   const pushTemporaryData = async () => {
-    let temporaryDataId = await fetch("/api/push-temporary-data", {
+    let { tempDataId } = await fetch("/api/push-temporary-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,11 +56,11 @@ export function PreviewSheet() {
       }),
     }).then((res) => res?.json());
 
-    await getPreviewUrl(temporaryDataId.tempDataId);
+    return tempDataId;
   };
 
   useEffect(() => {
-    pushTemporaryData();
+    getPreviewUrl();
   }, []);
 
   return (
@@ -46,7 +68,9 @@ export function PreviewSheet() {
       <SheetHeader>
         <div className="flex flex-row gap-2">
           <Button>Print</Button>
-          <Button variant="outline">PDF</Button>
+          <Button variant="outline" onClick={downloadPdfFIle}>
+            PDF
+          </Button>
         </div>
       </SheetHeader>
       <div className="grid h-full gap-4 py-4">
