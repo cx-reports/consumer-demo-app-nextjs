@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
                   table.getRowModel().rows.map((row) => (
                     <>
                       <SheetTrigger
-                        onClick={() => setContent(data[row.index])}
+                        onClick={() => setContent({ invoice: data[row.index] })}
                         asChild
                         disabled={!usePreviewSheet}
                       >
