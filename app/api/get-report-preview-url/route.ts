@@ -14,9 +14,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.searchParams);
     const tmpDataId = searchParams.get("tempDataId");
+    const reportId = searchParams.get("reportId");
 
     let previewUrl = client.getReportPreviewURL({
-      reportId: 18620,
+      reportId: reportId ? parseInt(reportId) : undefined,
       nonce,
       tmpDataId: tmpDataId !== null ? parseInt(tmpDataId) : undefined,
     });

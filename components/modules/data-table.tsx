@@ -17,23 +17,28 @@ import {
 } from "@/components/ui/table";
 import { Sheet, SheetTrigger } from "../ui/sheet";
 import { PreviewSheet } from "./preview-sheet";
+import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   usePreviewSheet?: boolean;
+  reportId?: number;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   usePreviewSheet = true,
+  reportId,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const [content, setContent] = useState<any>();
 
   return (
     <>
@@ -63,21 +68,27 @@ export function DataTable<TData, TValue>({
               <>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
-                    <SheetTrigger asChild disabled={!usePreviewSheet}>
-                      <TableRow
-                        key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
+                    <>
+                      <SheetTrigger
+                        onClick={() => setContent(data[row.index])}
+                        asChild
+                        disabled={!usePreviewSheet}
                       >
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    </SheetTrigger>
+                        <TableRow
+                          key={row.id}
+                          data-state={row.getIsSelected() && "selected"}
+                        >
+                          {row.getVisibleCells().map((cell) => (
+                            <TableCell key={cell.id}>
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </SheetTrigger>
+                    </>
                   ))
                 ) : (
                   <TableRow>
@@ -94,7 +105,7 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
 
-        <PreviewSheet />
+        <PreviewSheet reportId={reportId} content={content} />
       </Sheet>
     </>
   );

@@ -4,14 +4,19 @@ import { Button } from "@/components/ui/button";
 import { SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 
-export function PreviewSheet() {
+interface PreviewSheetProps {
+  reportId?: number;
+  content?: any;
+}
+
+export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
   const [previewUrl, setPreviewUrl] = useState<string>();
 
   const getPreviewUrl = async () => {
     const tempDataId = await pushTemporaryData();
 
     let { previewUrl } = await fetch(
-      `/api/get-report-preview-url?tempDataId=${tempDataId}`,
+      `/api/get-report-preview-url?tempDataId=${tempDataId}&reportId=${reportId}`,
       {
         method: "GET",
         headers: {
@@ -27,7 +32,7 @@ export function PreviewSheet() {
     const tempDataId = await pushTemporaryData();
 
     let downloadUrl = await fetch(
-      `/api/get-report-pdf-download-url?tempDataId=${tempDataId}`,
+      `/api/get-report-pdf-download-url?tempDataId=${tempDataId}&reportId=${reportId}`,
       {
         method: "GET",
         headers: {
@@ -45,26 +50,152 @@ export function PreviewSheet() {
   };
 
   const pushTemporaryData = async () => {
+    console.log(content);
     let { tempDataId } = await fetch("/api/push-temporary-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content:
-          "{\n  \u0022invoice_number\u0022: \u00222023-ABC-123456\u0022,\n  \u0022date\u0022: \u00222023-11-03\u0022,\n  \u0022due_date\u0022: \u00222023-11-17\u0022,\n  \u0022bill_to\u0022: {\n    \u0022company_name\u0022: \u0022Tech Solutions Inc.\u0022,\n    \u0022address\u0022: \u0022123 Tech Street\u0022,\n    \u0022city\u0022: \u0022Innovate City\u0022,\n    \u0022state\u0022: \u0022Techsylvania\u0022,\n    \u0022zip\u0022: \u002212345\u0022,\n    \u0022country\u0022: \u0022USA\u0022\n  },\n  \u0022ship_to\u0022: {\n    \u0022company_name\u0022: \u0022Tech Solutions Inc.\u0022,\n    \u0022address\u0022: \u0022456 Solution Ave\u0022,\n    \u0022city\u0022: \u0022Progress Town\u0022,\n    \u0022state\u0022: \u0022Techsylvania\u0022,\n    \u0022zip\u0022: \u002267890\u0022,\n    \u0022country\u0022: \u0022USA\u0022\n  },\n  \u0022items\u0022: [\n    {\n      \u0022item_id\u0022: \u0022CPU001\u0022,\n      \u0022description\u0022: \u0022Quad-core CPU 3.6 GHz\u0022,\n      \u0022unit_price\u0022: 250.00,\n      \u0022quantity\u0022: 2,\n      \u0022subtotal\u0022: 500.00\n    },\n    {\n      \u0022item_id\u0022: \u0022RAM002\u0022,\n      \u0022description\u0022: \u002216GB DDR4 RAM\u0022,\n      \u0022unit_price\u0022: 90.00,\n      \u0022quantity\u0022: 4,\n      \u0022subtotal\u0022: 360.00\n    },\n    {\n      \u0022item_id\u0022: \u0022HDD003\u0022,\n      \u0022description\u0022: \u00221TB SSD Hard Drive\u0022,\n      \u0022unit_price\u0022: 150.00,\n      \u0022quantity\u0022: 1,\n      \u0022subtotal\u0022: 150.00\n    },\n    {\n      \u0022item_id\u0022: \u0022GPU004\u0022,\n      \u0022description\u0022: \u0022Gaming Graphics Card\u0022,\n      \u0022unit_price\u0022: 400.00,\n      \u0022quantity\u0022: 1,\n      \u0022subtotal\u0022: 400.00\n    },\n    {\n      \u0022item_id\u0022: \u0022PSU005\u0022,\n      \u0022description\u0022: \u0022750W Power Supply Unit\u0022,\n      \u0022unit_price\u0022: 80.00,\n      \u0022quantity\u0022: 1,\n      \u0022subtotal\u0022: 80.00\n    },\n    {\n      \u0022item_id\u0022: \u0022CASE006\u0022,\n      \u0022description\u0022: \u0022Mid Tower Computer Case\u0022,\n      \u0022unit_price\u0022: 120.00,\n      \u0022quantity\u0022: 1,\n      \u0022subtotal\u0022: 120.00\n    }\n  ],\n  \u0022subtotals\u0022: {\n    \u0022items_total\u0022: 1610.00,\n    \u0022tax_rate\u0022: 0.07,\n    \u0022tax_amount\u0022: 112.70,\n    \u0022shipping_fee\u0022: 25.00,\n    \u0022discount\u0022: 0.00\n  },\n  \u0022total_due\u0022: 1747.70,\n  \u0022notes\u0022: \u0022Thank you for your business!\u0022\n}",
+        content: {
+          ...content,
+        },
+        // content: {
+        //   invoice: {
+        //     invoice_number: "2023-ABC-123456",
+        //     date: "2023-11-03",
+        //     due_date: "2023-11-17",
+        //     bill_to: {
+        //       company_name: "Tech Solutions Inc.",
+        //       address: "123 Tech Street",
+        //       city: "Innovate City",
+        //       state: "Techsylvania",
+        //       zip: "12345",
+        //       country: "USA",
+        //     },
+        //     ship_to: {
+        //       company_name: "Tech Solutions Inc.",
+        //       address: "456 Solution Ave",
+        //       city: "Progress Town",
+        //       state: "Techsylvania",
+        //       zip: "67890",
+        //       country: "USA",
+        //     },
+        //     items: [
+        //       {
+        //         item_id: "CPU001",
+        //         description: "Quad-core CPU 3.6 GHz",
+        //         unit_price: 250,
+        //         quantity: 2,
+        //         subtotal: 500,
+        //       },
+        //       {
+        //         item_id: "RAM002",
+        //         description: "16GB DDR4 RAM",
+        //         unit_price: 90,
+        //         quantity: 4,
+        //         subtotal: 360,
+        //       },
+        //       {
+        //         item_id: "HDD003",
+        //         description: "1TB SSD Hard Drive",
+        //         unit_price: 150,
+        //         quantity: 1,
+        //         subtotal: 150,
+        //       },
+        //       {
+        //         item_id: "GPU004",
+        //         description: "Gaming Graphics Card",
+        //         unit_price: 400,
+        //         quantity: 1,
+        //         subtotal: 400,
+        //       },
+        //       {
+        //         item_id: "PSU005",
+        //         description: "750W Power Supply Unit",
+        //         unit_price: 80,
+        //         quantity: 1,
+        //         subtotal: 80,
+        //       },
+        //       {
+        //         item_id: "CASE006",
+        //         description: "Mid Tower Computer Case",
+        //         unit_price: 120,
+        //         quantity: 1,
+        //         subtotal: 120,
+        //       },
+        //     ],
+        //     subtotals: {
+        //       items_total: 1610,
+        //       tax_rate: 0.07,
+        //       tax_amount: 112.7,
+        //       shipping_fee: 42424242,
+        //       discount: 0,
+        //     },
+        //     total_due: 1747.7,
+        //     notes: "Thank you for your business!",
+        //   },
+        // },
+
+        // invoiceItems: [
+        //   {
+        //     item_id: "CPU001",
+        //     description: "Quad-core CPU 3.6 GHz",
+        //     unit_price: 250,
+        //     quantity: 2,
+        //     subtotal: 500,
+        //   },
+        //   {
+        //     item_id: "RAM002",
+        //     description: "16GB DDR4 RAM",
+        //     unit_price: 90,
+        //     quantity: 4,
+        //     subtotal: 360,
+        //   },
+        //   {
+        //     item_id: "HDD003",
+        //     description: "1TB SSD Hard Drive",
+        //     unit_price: 150,
+        //     quantity: 1,
+        //     subtotal: 150,
+        //   },
+        //   {
+        //     item_id: "GPU004",
+        //     description: "Gaming Graphics Card",
+        //     unit_price: 400,
+        //     quantity: 1,
+        //     subtotal: 400,
+        //   },
+        //   {
+        //     item_id: "PSU005",
+        //     description: "750W Power Supply Unit",
+        //     unit_price: 80,
+        //     quantity: 1,
+        //     subtotal: 80,
+        //   },
+        //   {
+        //     item_id: "CASE006",
+        //     description: "Mid Tower Computer Case",
+        //     unit_price: 120,
+        //     quantity: 1,
+        //     subtotal: 120,
+        //   },
+        // ],
       }),
     }).then((res) => res?.json());
 
     return tempDataId;
   };
 
-  useEffect(() => {
-    getPreviewUrl();
-  }, []);
+  // useEffect(() => {
+  //   getPreviewUrl();
+  // }, []);
 
   return (
-    <SheetContent className="min-w-[1000px]">
+    <SheetContent
+      className="min-w-[1000px]"
+      onOpenAutoFocus={(e) => getPreviewUrl()}
+    >
       <SheetHeader>
         <div className="flex flex-row gap-2">
           <Button>Print</Button>
