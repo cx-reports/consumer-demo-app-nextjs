@@ -71,10 +71,13 @@ export const Navigation = () => {
     <nav className="grid items-start px-2 text-sm font-medium lg:px-6">
       {navigationItems.map((navItem, index) => (
         <>
-          <span className="mt-4 mb-1">{navItem.title}</span>
+          <span key={`nav-item-${index}`} className="mt-4 mb-1">
+            {navItem.title}
+          </span>
           {navItem.items.map((navLink, index) => (
             <Link
               href={navLink.href}
+              key={`nav-link-${index}`}
               className={clsx({
                 "flex items-center gap-3 rounded-lg px-3 text-muted-foreground py-2 transition-all hover:text-primary":
                   true,

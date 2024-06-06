@@ -7,6 +7,8 @@ let client = new CxReportsClient({
   defaultWorkspaceId: process.env.DEFAULT_WORKSPACE_ID,
 });
 
+export const revalidate = 0;
+
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     let { nonce } = await client.createNonceAuthToken();
