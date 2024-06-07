@@ -41,6 +41,10 @@ export interface Invoice {
 
 export const columns: ColumnDef<Invoice>[] = [
   {
+    accessorKey: "bill_to.company_name",
+    header: "Client",
+  },
+  {
     accessorKey: "invoice_number",
     header: "Invoice Number",
   },

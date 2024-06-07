@@ -46,11 +46,19 @@ export function PreviewSheet({
 
   const printPdfFile = () => {
     if (!previewIframe.current) return;
-    previewIframe.current.contentWindow?.print();
+    previewIframe.current.contentWindow?.postMessage("print", "*");
   };
 
   useEffect(() => {
     getPreviewUrl();
+
+    window.addEventListener("message", (event) => {
+      if (event.data === "print") {
+        previewIframe?.current?.contentWindow?.print();
+      } else {
+        return;
+      }
+    });
   }, []);
 
   return (
@@ -61,7 +69,7 @@ export function PreviewSheet({
     >
       <SheetHeader>
         <div className="flex flex-row gap-2">
-          <Button onClick={printPdfFile}>Print</Button>
+          <Button onClick={() => printPdfFile()}>Print</Button>
           <Button variant="outline" onClick={getReportPdfFile}>
             PDF
           </Button>
