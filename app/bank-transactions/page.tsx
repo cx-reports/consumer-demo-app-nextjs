@@ -17,7 +17,7 @@ export default function BankTransactions() {
       `/api/get-report-preview-url?reportId=18628`
     ).then((res) => res?.json());
     console.log(previewUrl);
-    setUrl(previewUrl);
+    setUrl(`${previewUrl}&hidePrintButton=true`);
   };
 
   const getReportPdfFile = async () => {
