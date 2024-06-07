@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SheetContent, SheetHeader } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface PreviewSheetProps {
   reportId?: number;
@@ -9,12 +9,13 @@ interface PreviewSheetProps {
 
 export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
   const [previewUrl, setPreviewUrl] = useState<string>();
+  const previewIframe = useRef<HTMLIFrameElement>(null);
 
   const getPreviewUrl = async () => {
-    const tempDataId = await pushTemporaryData();
-
     let { previewUrl } = await fetch(
-      `/api/get-report-preview-url?tempDataId=${tempDataId}&reportId=${reportId}`,
+      `/api/get-report-preview-url?data=${encodeURIComponent(
+        JSON.stringify(content)
+      )}&reportId=${reportId}`,
       {
         method: "GET",
         headers: {
@@ -26,42 +27,17 @@ export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
     setPreviewUrl(`${previewUrl}&hidePrintButton=true`);
   };
 
-  const getDownloadUrl = async () => {
-    const tempDataId = await pushTemporaryData();
-
-    let downloadUrl = await fetch(
-      `/api/get-report-pdf-download-url?tempDataId=${tempDataId}&reportId=${reportId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then((res) => res?.json());
-
-    return downloadUrl;
+  const getReportPdfFIle = async () => {
+    window.open(
+      `/api/get-report-pdf?data=${encodeURIComponent(
+        JSON.stringify(content)
+      )}&reportId=${reportId}`
+    );
   };
 
-  const downloadPdfFIle = async () => {
-    let downloadUrl = await getDownloadUrl();
-    window.open(downloadUrl.downloadUrl);
-  };
-
-  const pushTemporaryData = async () => {
-    console.log(content);
-    let { tempDataId } = await fetch("/api/push-temporary-data", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: {
-          ...content,
-        },
-      }),
-    }).then((res) => res?.json());
-
-    return tempDataId;
+  const printPdfFile = () => {
+    if (!previewIframe.current) return;
+    previewIframe.current.contentWindow?.print();
   };
 
   return (
@@ -71,14 +47,18 @@ export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
     >
       <SheetHeader>
         <div className="flex flex-row gap-2">
-          <Button>Print</Button>
-          <Button variant="outline" onClick={downloadPdfFIle}>
+          <Button onClick={printPdfFile}>Print</Button>
+          <Button variant="outline" onClick={getReportPdfFIle}>
             PDF
           </Button>
         </div>
       </SheetHeader>
       <div className="grid h-full gap-4 py-4">
-        <iframe src={previewUrl} className="w-full h-full" />
+        <iframe
+          src={previewUrl}
+          className="w-full h-full"
+          ref={previewIframe}
+        />
       </div>
     </SheetContent>
   );

@@ -15,13 +15,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.searchParams);
-    const tmpDataId = searchParams.get("tempDataId");
-    const reportId = searchParams.get("reportId");
+    const reportId = parseInt(searchParams.get("reportId")!);
+    const data = searchParams.get("data");
+
+    let { tempDataId } = await client.pushTemporaryData({
+      content: JSON.parse(data!),
+    });
 
     let previewUrl = client.getReportPreviewURL({
-      reportId: reportId ? parseInt(reportId) : undefined,
+      reportId,
       nonce,
-      tmpDataId: tmpDataId !== null ? parseInt(tmpDataId) : undefined,
+      tempDataId,
     });
 
     return NextResponse.json({ previewUrl });
