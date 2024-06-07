@@ -39,6 +39,7 @@ export function DataTable<TData, TValue>({
   });
 
   const [content, setContent] = useState<any>();
+  const [showPreviewSheet, setShowPreviewSheet] = useState<boolean>(false);
 
   return (
     <Sheet>
@@ -69,7 +70,10 @@ export function DataTable<TData, TValue>({
                 table.getRowModel().rows.map((row) => (
                   <>
                     <SheetTrigger
-                      onClick={() => setContent({ invoice: data[row.index] })}
+                      onClick={() => {
+                        setShowPreviewSheet(true);
+                        setContent({ invoice: data[row.index] });
+                      }}
                       asChild
                       disabled={!usePreviewSheet}
                     >
@@ -104,7 +108,13 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <PreviewSheet reportId={reportId} content={content} />
+      {showPreviewSheet && (
+        <PreviewSheet
+          reportId={reportId}
+          content={content}
+          onCloseAutoFocus={() => setShowPreviewSheet(false)}
+        />
+      )}
     </Sheet>
   );
 }

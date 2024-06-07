@@ -15,12 +15,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.searchParams);
-    const reportId = parseInt(searchParams.get("reportId")!);
     const data = searchParams.get("data");
+    const reportId = parseInt(searchParams.get("reportId")!);
 
-    let { tempDataId } = await client.pushTemporaryData({
-      content: JSON.parse(data!),
-    });
+    let tempDataId;
+    if (data) {
+      let pushTempData = await client.pushTemporaryData({
+        content: JSON.parse(data!),
+      });
+
+      tempDataId = pushTempData.tempDataId;
+    }
 
     let previewUrl = client.getReportPreviewURL({
       reportId,

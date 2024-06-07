@@ -1,17 +1,25 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { SheetContent, SheetHeader } from "@/components/ui/sheet";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface PreviewSheetProps {
   reportId?: number;
   content?: any;
+  onCloseAutoFocus?: () => void;
 }
 
-export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
+export function PreviewSheet({
+  reportId,
+  content,
+  onCloseAutoFocus,
+}: PreviewSheetProps) {
   const [previewUrl, setPreviewUrl] = useState<string>();
   const previewIframe = useRef<HTMLIFrameElement>(null);
 
   const getPreviewUrl = async () => {
+    console.log("render");
     let { previewUrl } = await fetch(
       `/api/get-report-preview-url?data=${encodeURIComponent(
         JSON.stringify(content)
@@ -24,10 +32,11 @@ export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
       }
     ).then((res) => res?.json());
 
+    console.log(previewUrl);
     setPreviewUrl(`${previewUrl}&hidePrintButton=true`);
   };
 
-  const getReportPdfFIle = async () => {
+  const getReportPdfFile = async () => {
     window.open(
       `/api/get-report-pdf?data=${encodeURIComponent(
         JSON.stringify(content)
@@ -40,15 +49,20 @@ export function PreviewSheet({ reportId, content }: PreviewSheetProps) {
     previewIframe.current.contentWindow?.print();
   };
 
+  useEffect(() => {
+    getPreviewUrl();
+  }, []);
+
   return (
     <SheetContent
       className="min-w-[1000px]"
-      onOpenAutoFocus={(e) => getPreviewUrl()}
+      // onOpenAutoFocus={(e) => getPreviewUrl()}
+      onCloseAutoFocus={onCloseAutoFocus}
     >
       <SheetHeader>
         <div className="flex flex-row gap-2">
           <Button onClick={printPdfFile}>Print</Button>
-          <Button variant="outline" onClick={getReportPdfFIle}>
+          <Button variant="outline" onClick={getReportPdfFile}>
             PDF
           </Button>
         </div>
