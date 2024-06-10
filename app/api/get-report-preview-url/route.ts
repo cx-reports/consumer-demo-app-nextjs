@@ -9,7 +9,7 @@ let client = new CxReportsClient({
 
 export const revalidate = 0;
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   try {
     let { nonce } = await client.createNonceAuthToken();
 

@@ -25,21 +25,6 @@ const navigationItems: NavigationItemsModel[] = [
         text: "Invoices",
         icon: "file-spreadsheet",
       },
-      {
-        href: "/lab-results",
-        text: "Lab Results",
-        icon: "flask-conical",
-      },
-      {
-        href: "/tickets",
-        text: "Tickets",
-        icon: "ticket",
-      },
-      {
-        href: "/trade",
-        text: "Trade",
-        icon: "line-chart",
-      },
     ],
   },
   {
@@ -49,16 +34,6 @@ const navigationItems: NavigationItemsModel[] = [
         href: "/bank-transactions",
         text: "Bank Transactions",
         icon: "landmark",
-      },
-      {
-        href: "/sales",
-        text: "Sales",
-        icon: "dollar-sign",
-      },
-      {
-        href: "/portfolio-valuation",
-        text: "Portfolio Valuation",
-        icon: "candlestick-chart",
       },
     ],
   },

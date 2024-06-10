@@ -7,7 +7,7 @@ let client = new CxReportsClient({
   defaultWorkspaceId: process.env.DEFAULT_WORKSPACE_ID,
 });
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const searchParams = new URLSearchParams(url.searchParams);
   const reportId = parseInt(searchParams.get("reportId")!);
@@ -18,7 +18,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     let pushTempData = await client.pushTemporaryData({
       content: JSON.parse(data!),
     });
-
     tempDataId = pushTempData.tempDataId;
   }
 

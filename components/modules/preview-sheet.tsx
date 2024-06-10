@@ -19,20 +19,12 @@ export function PreviewSheet({
   const previewIframe = useRef<HTMLIFrameElement>(null);
 
   const getPreviewUrl = async () => {
-    console.log("render");
     let { previewUrl } = await fetch(
       `/api/get-report-preview-url?data=${encodeURIComponent(
         JSON.stringify(content)
-      )}&reportId=${reportId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      )}&reportId=${reportId}`
     ).then((res) => res?.json());
 
-    console.log(previewUrl);
     setPreviewUrl(`${previewUrl}&hidePrintButton=true`);
   };
 
@@ -49,22 +41,26 @@ export function PreviewSheet({
     previewIframe.current.contentWindow?.postMessage("print", "*");
   };
 
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data === "print") {
+      previewIframe?.current?.contentWindow?.print();
+    } else {
+      return;
+    }
+  };
+
   useEffect(() => {
     getPreviewUrl();
+    window.addEventListener("message", handleMessage);
 
-    window.addEventListener("message", (event) => {
-      if (event.data === "print") {
-        previewIframe?.current?.contentWindow?.print();
-      } else {
-        return;
-      }
-    });
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
   }, []);
 
   return (
     <SheetContent
       className="min-w-[1000px]"
-      // onOpenAutoFocus={(e) => getPreviewUrl()}
       onCloseAutoFocus={onCloseAutoFocus}
     >
       <SheetHeader>

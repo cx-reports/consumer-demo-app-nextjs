@@ -1,4 +1,5 @@
 "use client";
+
 import { Combobox } from "@/components/modules/combo-box";
 import DatePicker from "@/components/modules/date-picker";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ export default function BankTransactions() {
     let { previewUrl } = await fetch(
       `/api/get-report-preview-url?reportId=18628`
     ).then((res) => res?.json());
-    console.log(previewUrl);
+
     setUrl(`${previewUrl}&hidePrintButton=true`);
   };
 
