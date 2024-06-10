@@ -56,7 +56,7 @@ export function PreviewSheet({
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <SheetContent

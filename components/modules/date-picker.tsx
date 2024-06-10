@@ -12,14 +12,14 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function DatePicker(props: any) {
+export default function DatePicker({ props }: any) {
   const [date, setDate] = useState<Date>();
 
   useEffect(() => {
     if (!date) return;
     if (props?.setFromDate) props?.setFromDate(date);
     if (props?.setToDate) props?.setToDate(date);
-  }, [date]);
+  }, [date]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Popover>
@@ -27,7 +27,7 @@ export default function DatePicker(props: any) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >
