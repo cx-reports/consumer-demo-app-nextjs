@@ -16,14 +16,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        fetch-depth: 1
+        fetch-depth: 0
     - name: Sync
       run: |
         git config --global user.email "mihajlo.novakovic@codaxy.com"
         git config --global user.name "mihajlo-cdxy"
         eval `ssh-agent -s`
         ssh-add - <<< '${{ secrets.VERCELCDXY_KEY }}'
-        git remote add upstream git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
-        git fetch upstream
-        git merge upstream/main --allow-unrelated-histories
-        git push
+        git remote add vercel git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
+        git fetch vercel
+        git merge vercel/main --allow-unrelated-histories
+        git push vercel
