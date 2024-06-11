@@ -25,5 +25,5 @@ jobs:
         ssh-add - <<< '${{ secrets.VERCELCDXY_KEY }}'
         git remote add upstream git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
         git fetch upstream
-        git merge upstream/main
+        git merge upstream/main --allow-unrelated-histories
         git push
