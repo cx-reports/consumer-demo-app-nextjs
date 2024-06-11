@@ -25,8 +25,9 @@ export const Logo: React.FC<LogoProps> = ({ className }) => {
         <Image
           src={theme === "dark" ? DarkLogo : LightLogo}
           alt="Logo"
-          width={150}
-          height={50}
+          width={174}
+          height={28}
+          priority
         />
       </Link>
     </div>

@@ -25,11 +25,11 @@ export default function BankTransactions() {
     window.open(`/api/get-report-pdf?reportId=18628`);
   };
 
-  useEffect(() => {
-    console.log(`From date ${fromDate}`);
-    console.log(`To date ${toDate}`);
-    console.log(`account ${account}`);
-  }, [fromDate, toDate, account]);
+  // useEffect(() => {
+  //   console.log(`From date ${fromDate}`);
+  //   console.log(`To date ${toDate}`);
+  //   console.log(`account ${account}`);
+  // }, [fromDate, toDate, account]);
 
   return (
     <>

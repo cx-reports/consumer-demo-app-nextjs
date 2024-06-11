@@ -45,10 +45,8 @@ export const Navigation = () => {
   return (
     <nav className="grid items-start px-2 text-sm font-medium lg:px-6">
       {navigationItems.map((navItem, index) => (
-        <>
-          <span key={`nav-item-${index}`} className="mt-4 mb-1">
-            {navItem.title}
-          </span>
+        <span className="mt-4 mb-1" key={`nav-item-${index}`}>
+          <span>{navItem.title}</span>
           {navItem.items.map((navLink, index) => (
             <Link
               href={navLink.href}
@@ -64,7 +62,7 @@ export const Navigation = () => {
               {navLink.text}
             </Link>
           ))}
-        </>
+        </span>
       ))}
     </nav>
   );
