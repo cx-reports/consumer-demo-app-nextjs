@@ -20,7 +20,7 @@ export function PreviewSheet({
 
   const getPreviewUrl = async () => {
     let { previewUrl } = await fetch(
-      `/api/get-report-preview-url?data=${encodeURIComponent(
+      `/api/get-report-preview-url?tempData=${encodeURIComponent(
         JSON.stringify(content)
       )}&reportId=${reportId}`
     ).then((res) => res?.json());

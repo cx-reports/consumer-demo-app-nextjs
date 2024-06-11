@@ -15,13 +15,20 @@ export async function GET(req: NextRequest) {
 
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.searchParams);
+    const tempData = searchParams.get("tempData");
     const data = searchParams.get("data");
     const reportId = parseInt(searchParams.get("reportId")!);
+    const paramsString = searchParams.get("params");
+
+    let params;
+    if (paramsString) {
+      params = JSON.parse(paramsString!);
+    }
 
     let tempDataId;
-    if (data) {
+    if (tempData) {
       let pushTempData = await client.pushTemporaryData({
-        content: JSON.parse(data!),
+        content: JSON.parse(tempData!),
       });
 
       tempDataId = pushTempData.tempDataId;
@@ -31,6 +38,8 @@ export async function GET(req: NextRequest) {
       reportId,
       nonce,
       tempDataId,
+      params,
+      data: data ? JSON.parse(data) : undefined,
     });
 
     return NextResponse.json({ previewUrl });

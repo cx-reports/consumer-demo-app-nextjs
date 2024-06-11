@@ -6,16 +6,44 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
+import { accounts } from "./accounts";
+import { AccountModel } from "./accounts";
+
+const AccountsList = [
+  {
+    value: "123456789",
+    label: "John Doe",
+  },
+  {
+    value: "987654321",
+    label: "Jane Smith",
+  },
+  {
+    value: "123123123",
+    label: "Alice Johnson",
+  },
+  {
+    value: "321321321",
+    label: "Bob Brown",
+  },
+  {
+    value: "456456456",
+    label: "Carol White",
+  },
+];
 
 export default function BankTransactions() {
-  const [fromDate, setFromDate] = useState<Date>();
-  const [toDate, setToDate] = useState<Date>();
-  const [account, setAccount] = useState<string>();
+  const [dateFrom, setDateFrom] = useState<Date>();
+  const [dateTo, setDateTo] = useState<Date>();
+  const [selectedAccount, setSelectedAccount] = useState<string>();
+  const [account, setAccount] = useState<AccountModel>();
   const [previewUrl, setPreviewUrl] = useState<string>();
 
   const getPreviewUrl = async () => {
     let { previewUrl } = await fetch(
-      `/api/get-report-preview-url?reportId=18628`
+      `/api/get-report-preview-url?reportId=18628&params=${encodeURIComponent(
+        JSON.stringify({ dateFrom, dateTo })
+      )}&data=${encodeURIComponent(JSON.stringify({ account }))}`
     ).then((res) => res?.json());
 
     setPreviewUrl(`${previewUrl}&hidePrintButton=true`);
@@ -25,11 +53,13 @@ export default function BankTransactions() {
     window.open(`/api/get-report-pdf?reportId=18628`);
   };
 
-  // useEffect(() => {
-  //   console.log(`From date ${fromDate}`);
-  //   console.log(`To date ${toDate}`);
-  //   console.log(`account ${account}`);
-  // }, [fromDate, toDate, account]);
+  useEffect(() => {
+    accounts.find((acc) => {
+      if (acc.accountNumber == selectedAccount) {
+        setAccount(acc);
+      }
+    });
+  }, [selectedAccount]);
 
   return (
     <>
@@ -38,17 +68,21 @@ export default function BankTransactions() {
           <CardContent className="p-3 flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="from-date">Date from:</Label>
-              <DatePicker id="from-date" setFromDate={setFromDate} />
+              <DatePicker id="from-date" setDateTo={setDateFrom} />
             </div>
 
             <div className="flex flex-col gap-2">
               <Label htmlFor="to-date">Date to:</Label>
-              <DatePicker id="to-date" setToDate={setToDate} />
+              <DatePicker id="to-date" setDateTo={setDateTo} />
             </div>
 
             <div className="flex flex-col gap-2">
               <Label htmlFor="account">Account:</Label>
-              <Combobox id="account" setAccount={setAccount} />
+              <Combobox
+                id="account"
+                setAccount={setSelectedAccount}
+                items={AccountsList}
+              />
             </div>
 
             <div className="flex flex-row gap-2 mt-4">

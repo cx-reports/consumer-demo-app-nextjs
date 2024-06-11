@@ -18,30 +18,7 @@ import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const accounts = [
-  {
-    value: "account1",
-    label: "Account1",
-  },
-  {
-    value: "account2",
-    label: "Account2",
-  },
-  {
-    value: "account3",
-    label: "Account3",
-  },
-  {
-    value: "account4",
-    label: "Account4",
-  },
-  {
-    value: "account5",
-    label: "Account5",
-  },
-];
-
-export function Combobox({ props }: any) {
+export function Combobox(props: any) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -60,7 +37,7 @@ export function Combobox({ props }: any) {
           className="justify-between"
         >
           {value
-            ? accounts.find((account) => account.value === value)?.label
+            ? props.items.find((item: any) => item.value === value)?.label
             : "Select account..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -71,22 +48,23 @@ export function Combobox({ props }: any) {
           <CommandList>
             <CommandEmpty>No account found.</CommandEmpty>
             <CommandGroup>
-              {accounts.map((account) => (
+              {props.items.map((item: any) => (
                 <CommandItem
-                  key={account.value}
-                  value={account.value}
+                  key={item.value}
+                  value={item.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
+                  className="cursor-pointer"
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === account.value ? "opacity-100" : "opacity-0"
+                      value === item.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {account.label}
+                  {item.label}
                 </CommandItem>
               ))}
             </CommandGroup>

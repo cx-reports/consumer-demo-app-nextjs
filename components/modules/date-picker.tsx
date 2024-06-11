@@ -12,13 +12,13 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function DatePicker({ props }: any) {
+export default function DatePicker(props: any) {
   const [date, setDate] = useState<Date>();
 
   useEffect(() => {
     if (!date) return;
-    if (props?.setFromDate) props?.setFromDate(date);
-    if (props?.setToDate) props?.setToDate(date);
+    if (props?.setDateFrom) props?.setDateFrom(date);
+    if (props?.setDateTo) props?.setDateTo(date);
   }, [date]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
