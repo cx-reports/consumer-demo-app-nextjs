@@ -4,12 +4,16 @@
 
 **This application demonstrates how CxReports software can be integrated into third-party applications.**
 
+<br>
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
 - Node.js (v18.17 or later)
 - macOS, Windows (including WSL), and Linux are supported.
+
+<br>
 
 ## Installation
 
@@ -18,7 +22,7 @@ Follow these steps to set up and run the application:
 1. Clone the GitHub repository:
 
    ```bash
-   git clone https://github.com/cx-reports/consumer-demo-app-nextjs/tree/main
+   git clone https://github.com/cx-reports/consumer-demo-app-nextjs.git
    ```
 
 2. Navigate to the project directory and install the necessary packages:
@@ -28,29 +32,25 @@ Follow these steps to set up and run the application:
    npm install
    ```
 
-3. Start the development server:
+3. Create a .env.local file in the root directory of the project.
+
+4. Add the following environment variables to the .env.local file, replacing the placeholder values with your actual values:
+
+   ```bash
+   BASE_URL="YOUR_BASE_URL"
+   DEFAULT_WORKSPACE_ID=YOUR_WORKSPACE_ID
+   AUTH_TOKEN="YOUR_AUTH_TOKEN"
+   ```
+
+5. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-4. Open your browser and visit [http://localhost:3000](http://localhost:3000) to see the application in action.
+6. Open your browser and visit [http://localhost:3000](http://localhost:3000) to see the application in action.
 
-## Configuration
-
-To configure the application, follow these steps:
-
-1. Create a .env.local file in the root directory of the project.
-
-2. Add any necessary environment variables to this file. For example:
-
-```bash
-BASE_URL="YOUR_BASE_URL"
-DEFAULT_WORKSPACE_ID=YOUR_WORKSPACE_ID
-AUTH_TOKEN="YOUR_AUTH_TOKEN"
-```
-
-3. Save the file and restart the development server if it is already running.
+<br>
 
 ## Support
 
