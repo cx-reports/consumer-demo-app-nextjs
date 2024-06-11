@@ -14,11 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Git Repo Sync
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 1
-    - uses: wangchucheng/git-repo-sync@v0.1.0
-      with:
-        target-url: https://github.com/vercel-cdxy/consumer-demo-app-nextjs
-        target-username: vercel-cdxy
-        target-token: ${{ secrets.VERCELCDXY_TARGET_TOKEN }}
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        TARGET_REPO="https://${{ secrets.VERCELCDXY_TARGET_TOKEN }}@github.com/${{ secrets.VERCELCDXY_TARGET_PATH }}"
+        git remote add target $TARGET_REPO
+        git push target +refs/heads/main:refs/heads/main --force
