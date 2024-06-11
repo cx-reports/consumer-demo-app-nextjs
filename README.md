@@ -37,9 +37,9 @@ Follow these steps to set up and run the application:
 4. Add the following environment variables to the .env.local file, replacing the placeholder values with your actual values:
 
    ```bash
-   BASE_URL="YOUR_BASE_URL"
-   DEFAULT_WORKSPACE_ID=YOUR_WORKSPACE_ID
-   AUTH_TOKEN="YOUR_AUTH_TOKEN"
+   BASE_URL="your_base_url"
+   DEFAULT_WORKSPACE_ID=your_workspace_id
+   AUTH_TOKEN="your_auth_token"
    ```
 
 5. Start the development server:
