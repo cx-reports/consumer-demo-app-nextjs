@@ -19,8 +19,11 @@ jobs:
         fetch-depth: 1
     - name: Sync
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        TARGET_REPO="https://${{ secrets.VERCELCDXY_TARGET_TOKEN }}@github.com/${{ secrets.VERCELCDXY_TARGET_PATH }}"
-        git remote add target $TARGET_REPO
-        git push target +refs/heads/main:refs/heads/main --force
+        git config --global user.email "mihajlo.novakovic@codaxy.com"
+        git config --global user.name "mihajlo-cdxy"
+        eval `ssh-agent -s`
+        ssh-add - <<< '${{ secrets.VERCELCDXY_KEY }}'
+        git remote add upstream git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
+        git fetch upstream
+        git merge upstream/main
+        git push
