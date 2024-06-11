@@ -19,6 +19,6 @@ jobs:
         fetch-depth: 1
     - uses: wangchucheng/git-repo-sync@v0.1.0
       with:
-        target-url: ${{ secrets.VERCELCDXY_TARGET_URL }}
-        target-username: ${{ secrets.VERCELCDXY_TARGET_USERNAME }}
+        target-url: https://github.com/vercel-cdxy/consumer-demo-app-nextjs
+        target-username: vercel-cdxy
         target-token: ${{ secrets.VERCELCDXY_TARGET_TOKEN }}
