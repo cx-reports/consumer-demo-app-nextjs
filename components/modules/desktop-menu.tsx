@@ -1,5 +1,3 @@
-"use client";
-
 import { Logo } from "../ui/logo";
 import { Navigation } from "./navigation";
 

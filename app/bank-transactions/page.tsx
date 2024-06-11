@@ -86,8 +86,17 @@ export default function BankTransactions() {
             </div>
 
             <div className="flex flex-row gap-2 mt-4">
-              <Button onClick={getPreviewUrl}>Preview</Button>
-              <Button onClick={getReportPdfFile} variant="outline">
+              <Button
+                onClick={getPreviewUrl}
+                disabled={!account || !dateFrom || !dateTo}
+              >
+                Preview
+              </Button>
+              <Button
+                onClick={getReportPdfFile}
+                variant="outline"
+                disabled={!account || !dateFrom || !dateTo}
+              >
                 PDF
               </Button>
             </div>

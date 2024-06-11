@@ -3,8 +3,8 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import LightLogo from "@/public/images/cx-reports-logo-dark.svg";
-import DarkLogo from "@/public/images/cx-reports-logo-light.svg";
+import LightLogo from "@/public/images/cx-reports-logo-v1.svg";
+import DarkLogo from "@/public/images/cx-reports-logo-v2.svg";
 import clsx from "clsx";
 
 interface LogoProps {

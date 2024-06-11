@@ -1,4 +1,4 @@
-![Tux, the Linux mascot](public/images/cx-reports-logo-dark.svg)
+![Tux, the Linux mascot](public/images/cx-reports-logo-v1.svg)
 
 # CxReports Consumer Demo Application
 
