@@ -23,7 +23,5 @@ jobs:
         git config --global user.name "${{ secrets.VERCELCDXY_USER }}"
         eval `ssh-agent -s`
         ssh-add - <<< '${{ secrets.VERCELCDXY_KEY }}'
-        git remote add vercel git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
-        git fetch vercel
-        git merge vercel/main --allow-unrelated-histories
+        git remote add vercel "${{ secrets.VERCELCDXY_TARGET_PATH }}"
         git push vercel --force
