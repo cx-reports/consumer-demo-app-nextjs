@@ -1,4 +1,4 @@
-name: mirror2vercel-cdxy
+name: mirror4vercel
 
 on:
   push:
@@ -19,8 +19,8 @@ jobs:
         fetch-depth: 0
     - name: Sync
       run: |
-        git config --global user.email "mihajlo.novakovic@codaxy.com"
-        git config --global user.name "mihajlo-cdxy"
+        git config --global user.email "${{ secrets.VERCELCDXY_EMAIL }}"
+        git config --global user.name "${{ secrets.VERCELCDXY_USER }}"
         eval `ssh-agent -s`
         ssh-add - <<< '${{ secrets.VERCELCDXY_KEY }}'
         git remote add vercel git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
