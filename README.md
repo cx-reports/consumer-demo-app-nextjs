@@ -4,7 +4,7 @@
 
 **This application demonstrates how CxReports can be integrated into third-party applications.**
 
-<br>
+[Live Demo](https://consumer-demo.cx-reports.com)
 
 ## Prerequisites
 
@@ -12,8 +12,6 @@ Before you begin, ensure you have the following installed on your system:
 
 - Node.js (v18.17 or later)
 - macOS, Windows (including WSL), and Linux are supported.
-
-<br>
 
 ## Installation
 
