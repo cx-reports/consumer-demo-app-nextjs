@@ -53,3 +53,7 @@ Follow these steps to set up and run the application:
 ## Support
 
 For further assistance, please [contact](https://www.cx-reports.com/contact) our support team or check out the official [documentation](https://docs.cx-reports.com/).
+
+## License
+
+[MIT License](./LICENSE.md)
