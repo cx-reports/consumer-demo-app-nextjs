@@ -2,7 +2,7 @@
 
 # CxReports Consumer Demo Application
 
-**This application demonstrates how CxReports software can be integrated into third-party applications.**
+**This application demonstrates how CxReports can be integrated into third-party applications.**
 
 <br>
 
