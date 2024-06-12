@@ -26,4 +26,4 @@ jobs:
         git remote add vercel git@github.com:vercel-cdxy/consumer-demo-app-nextjs.git
         git fetch vercel
         git merge vercel/main --allow-unrelated-histories
-        git push vercel
+        git push vercel --force
