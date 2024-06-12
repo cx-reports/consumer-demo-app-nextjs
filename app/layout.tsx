@@ -7,6 +7,9 @@ import "./globals.css";
 import { Logo } from "@/components/ui/logo";
 import { DesktopMenu } from "@/components/modules/desktop-menu";
 import { MobileMenu } from "@/components/modules/mobile-menu";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
+import Link from "next/link";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -43,6 +46,15 @@ export default function RootLayout({
               <Logo className="block md:hidden" />
 
               <div className="w-full flex flex-1 justify-end gap-2">
+                <Link
+                  href="https://github.com/cx-reports/consumer-demo-app-nextjs"
+                  className="flex gap-2 border justify-center items-center px-4 rounded-sm bg-[#0f172a] text-[#f8fafc] text-md hover:opacity-80 duration-100"
+                  target="_blank"
+                >
+                  <Icon name="github" />
+
+                  <span className="text-sm">Fork on GitHub</span>
+                </Link>
                 <ModeToggle />
                 <MobileMenu />
               </div>
