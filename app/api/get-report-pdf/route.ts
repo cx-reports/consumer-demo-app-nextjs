@@ -1,11 +1,13 @@
 import { CxReportsClient } from "@cx-reports/api-client";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 let client = new CxReportsClient({
   baseUrl: process.env.BASE_URL!,
   authToken: process.env.AUTH_TOKEN!,
   defaultWorkspaceId: process.env.DEFAULT_WORKSPACE_ID,
 });
+
+export const revalidate = 0;
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
