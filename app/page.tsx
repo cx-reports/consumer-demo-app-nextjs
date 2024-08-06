@@ -8,7 +8,7 @@ export default function Home() {
       columns={columns}
       data={data}
       usePreviewSheet={true}
-      reportId={18627}
+      reportId={1627}
     />
   );
 }

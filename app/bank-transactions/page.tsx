@@ -41,7 +41,7 @@ export default function BankTransactions() {
 
   const getPreviewUrl = async () => {
     let { previewUrl } = await fetch(
-      `/api/get-report-preview-url?reportId=18628&params=${encodeURIComponent(
+      `/api/get-report-preview-url?reportId=1628&params=${encodeURIComponent(
         JSON.stringify({ dateFrom, dateTo })
       )}&data=${encodeURIComponent(JSON.stringify({ account }))}`
     ).then((res) => res?.json());
@@ -50,7 +50,7 @@ export default function BankTransactions() {
   };
 
   const getReportPdfFile = async () => {
-    window.open(`/api/get-report-pdf?reportId=18628`);
+    window.open(`/api/get-report-pdf?reportId=1628`);
   };
 
   useEffect(() => {
