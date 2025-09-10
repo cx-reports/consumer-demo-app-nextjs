@@ -1,15 +1,16 @@
+import { DesktopMenu } from "@/components/modules/desktop-menu";
+import { MobileMenu } from "@/components/modules/mobile-menu";
+import { Icon } from "@/components/ui/icon";
+import { Logo } from "@/components/ui/logo";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
-import { Logo } from "@/components/ui/logo";
-import { DesktopMenu } from "@/components/modules/desktop-menu";
-import { MobileMenu } from "@/components/modules/mobile-menu";
-import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
 import Link from "next/link";
+
+import "./globals.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -28,6 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="G-P8HS0WPN29" />
+
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased grid w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]",
