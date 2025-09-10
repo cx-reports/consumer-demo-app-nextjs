@@ -29,6 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/* GTM */}
       <GoogleTagManager gtmId="G-P8HS0WPN29" />
 
       <body
