@@ -2,13 +2,26 @@ name: mirror4vercel
 
 on:
   push:
-    branches: ["main"]
+    branches:
+     - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+  
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - run: gh repo sync vercel-cdxy/consumer-demo-app-nextjs -b ${{ github.ref_name }} --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.VERCELCDXY_KEY }}
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Sync
+      run: |
+        git config --global user.email "${{ secrets.VERCELCDXY_EMAIL }}"
+        git config --global user.name "${{ secrets.VERCELCDXY_USER }}"
+        eval `ssh-agent -s`
+        ssh-add - <<< '${{ secrets.VERCELCDXY_KEY }}'
+        git remote add vercel "${{ secrets.VERCELCDXY_TARGET_PATH }}"
+        git push vercel --force
