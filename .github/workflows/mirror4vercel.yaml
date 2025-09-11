@@ -11,4 +11,4 @@ jobs:
     steps:
       - run: gh repo sync vercel-cdxy/consumer-demo-app-nextjs -b ${{ github.ref_name }} --force
         env:
-          GITHUB_TOKEN: ${{ secrets.Vercel_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.VERCELCDXY_KEY }}
