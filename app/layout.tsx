@@ -29,8 +29,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="G-P8HS0WPN29" />
-
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased grid w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]",
